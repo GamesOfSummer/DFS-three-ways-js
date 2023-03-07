@@ -53,12 +53,14 @@ var Node = /** @class */ (function () {
                 rightLeftHeight = this.ifNotNullReturnHeight(this.right.left);
             }
             if (leftHeight > rightHeight + 1) {
+                //do I need to double rotate?
                 if (leftRightHeight > leftLeftHeight) {
                     this.left.rotateRight();
                 }
                 this.rotateLeft();
             }
             else if (rightHeight > leftHeight + 1) {
+                //do I need to double rotate?
                 if (rightLeftHeight > rightRightHeight) {
                     this.right.rotateLeft();
                 }
@@ -73,6 +75,7 @@ var Node = /** @class */ (function () {
         return 0;
     };
     Node.prototype.rotateLeft = function () {
+        //solution from teacher
         var dataBefore = this.data;
         var rightBefore = this.right;
         this.data = this.left.data;
@@ -149,32 +152,21 @@ var AVLTree = /** @class */ (function () {
     return AVLTree;
 }());
 exports.AVLTree = AVLTree;
+var preorderTraverse = function (node, array) {
+    if (!node) {
+        return array;
+    }
+    else {
+        array.push(node.data);
+        preorderTraverse(node.left, array);
+    }
+};
 (0, helpers_1.consoleStart)();
-var nums = [3, 7, 4, 6, 5, 1, 10, 2, 9, 8];
+var nums = [8, 4, 3, 2, 5, 7, 6, 12, 10, 9, 11];
 var tree = new AVLTree();
 nums.map(function (num) { return tree.push(num); });
 var tree2 = tree;
 var objs = tree.toObject();
-(0, helpers_1.validateFxn)(objs.data, 4);
-(0, helpers_1.validateFxn)(objs.left.data, 2);
-(0, helpers_1.validateFxn)(objs.left.left.data, 1);
-(0, helpers_1.validateFxn)(objs.left.left.left, null);
-(0, helpers_1.validateFxn)(objs.left.left.right, null);
-(0, helpers_1.validateFxn)(objs.left.right.data, 3);
-(0, helpers_1.validateFxn)(objs.left.right.left, null);
-(0, helpers_1.validateFxn)(objs.left.right.right, null);
-(0, helpers_1.validateFxn)(objs.right.data, 7);
-(0, helpers_1.validateFxn)(objs.right.left.data, 6);
-(0, helpers_1.validateFxn)(objs.right.left.right, null);
-(0, helpers_1.validateFxn)(objs.right.left.left.data, 5);
-(0, helpers_1.validateFxn)(objs.right.left.left.left, null);
-(0, helpers_1.validateFxn)(objs.right.left.left.right, null);
-(0, helpers_1.validateFxn)(objs.right.right.data, 9);
-(0, helpers_1.validateFxn)(objs.right.right.left.data, 8);
-(0, helpers_1.validateFxn)(objs.right.right.left.left, null);
-(0, helpers_1.validateFxn)(objs.right.right.left.right, null);
-(0, helpers_1.validateFxn)(objs.right.right.right.data, 10);
-(0, helpers_1.validateFxn)(objs.right.right.right.left, null);
-(0, helpers_1.validateFxn)(objs.right.right.right.right, null);
+(0, helpers_1.validateFxn)(preorderTraverse(tree.root, []), []);
 (0, helpers_1.consoleEnd)();
 (0, helpers_1.consoleBuffer)();

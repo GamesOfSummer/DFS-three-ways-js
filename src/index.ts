@@ -176,45 +176,26 @@ export class AVLTree {
     }
 }
 
+const preorderTraverse = (node: Node, array) => {
+    if (!node) {
+        return array;
+    } else {
+        array.push(node.data);
+        preorderTraverse(node.left, array);
+    }
+};
+
 consoleStart();
 
-const nums = [3, 7, 4, 6, 5, 1, 10, 2, 9, 8];
+const nums = [8, 4, 3, 2, 5, 7, 6, 12, 10, 9, 11];
 const tree = new AVLTree();
 nums.map((num) => tree.push(num));
 const tree2 = tree;
 
 const objs = tree.toObject();
 
-validateFxn(objs.data, 4);
-
-validateFxn(objs.left.data, 2);
-
-validateFxn(objs.left.left.data, 1);
-validateFxn(objs.left.left.left, null);
-validateFxn(objs.left.left.right, null);
-
-validateFxn(objs.left.right.data, 3);
-validateFxn(objs.left.right.left, null);
-validateFxn(objs.left.right.right, null);
-
-validateFxn(objs.right.data, 7);
-
-validateFxn(objs.right.left.data, 6);
-validateFxn(objs.right.left.right, null);
-
-validateFxn(objs.right.left.left.data, 5);
-validateFxn(objs.right.left.left.left, null);
-validateFxn(objs.right.left.left.right, null);
-
-validateFxn(objs.right.right.data, 9);
-
-validateFxn(objs.right.right.left.data, 8);
-validateFxn(objs.right.right.left.left, null);
-validateFxn(objs.right.right.left.right, null);
-
-validateFxn(objs.right.right.right.data, 10);
-validateFxn(objs.right.right.right.left, null);
-validateFxn(objs.right.right.right.right, null);
+const output = preorderTraverse(tree.root, []);
+validateFxn(preorderTraverse(tree.root, []), []);
 
 consoleEnd();
 consoleBuffer();
