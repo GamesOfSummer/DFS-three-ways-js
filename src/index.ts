@@ -176,12 +176,40 @@ export class AVLTree {
     }
 }
 
-const preorderTraverse = (node: Node, array) => {
+const preorderTraverse = (node: Node, array: number[]): number[] => {
     if (!node) {
         return array;
     } else {
         array.push(node.data);
-        preorderTraverse(node.left, array);
+
+        array = preorderTraverse(node.left, array);
+        array = preorderTraverse(node.right, array);
+
+        return array;
+    }
+};
+
+const inorderTraverse = (node: Node, array: number[]): number[] => {
+    if (!node) {
+        return array;
+    } else {
+        array = inorderTraverse(node.left, array);
+        array.push(node.data);
+        array = inorderTraverse(node.right, array);
+
+        return array;
+    }
+};
+
+const postorderTraverse = (node: Node, array: number[]): number[] => {
+    if (!node) {
+        return array;
+    } else {
+        array = postorderTraverse(node.left, array);
+        array = postorderTraverse(node.right, array);
+        array.push(node.data);
+
+        return array;
     }
 };
 
@@ -194,8 +222,9 @@ const tree2 = tree;
 
 const objs = tree.toObject();
 
-const output = preorderTraverse(tree.root, []);
 validateFxn(preorderTraverse(tree.root, []), []);
+validateFxn(inorderTraverse(tree.root, []), []);
+validateFxn(postorderTraverse(tree.root, []), []);
 
 consoleEnd();
 consoleBuffer();

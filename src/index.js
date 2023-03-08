@@ -158,7 +158,31 @@ var preorderTraverse = function (node, array) {
     }
     else {
         array.push(node.data);
-        preorderTraverse(node.left, array);
+        array = preorderTraverse(node.left, array);
+        array = preorderTraverse(node.right, array);
+        return array;
+    }
+};
+var inorderTraverse = function (node, array) {
+    if (!node) {
+        return array;
+    }
+    else {
+        array = inorderTraverse(node.left, array);
+        array.push(node.data);
+        array = inorderTraverse(node.right, array);
+        return array;
+    }
+};
+var postorderTraverse = function (node, array) {
+    if (!node) {
+        return array;
+    }
+    else {
+        array = postorderTraverse(node.left, array);
+        array = postorderTraverse(node.right, array);
+        array.push(node.data);
+        return array;
     }
 };
 (0, helpers_1.consoleStart)();
@@ -168,5 +192,7 @@ nums.map(function (num) { return tree.push(num); });
 var tree2 = tree;
 var objs = tree.toObject();
 (0, helpers_1.validateFxn)(preorderTraverse(tree.root, []), []);
+(0, helpers_1.validateFxn)(inorderTraverse(tree.root, []), []);
+(0, helpers_1.validateFxn)(postorderTraverse(tree.root, []), []);
 (0, helpers_1.consoleEnd)();
 (0, helpers_1.consoleBuffer)();
